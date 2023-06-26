@@ -1,0 +1,195 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- meta data -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!--font-family-->
+
+
+    <!-- title of site -->
+    <title>Furniture</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
+          rel="stylesheet">
+    <link rel="shortcut icon" type="image/icon" href="assets/logo/favicon.png" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/linearicons.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootsnav.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+</head>
+
+<body>
+<!--[if lte IE 9]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+
+
+<!--welcome-hero start -->
+<header id="home" class="welcome-hero">
+    <section id="populer-products" class="populer-products">
+        <div class="container">
+            <div class="populer-products-content">
+                <div class="row">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+    </section>
+        <!-- top-area Start -->
+    <div class="top-area">
+        <div class="header-area">
+            <!-- Start Navigation -->
+            <nav class="navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy"
+                 data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+
+                <!-- Start Top Search -->
+                <div class="top-search">
+                    <div class="container">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                            <input type="text" class="form-control" placeholder="Search">
+                            <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Top Search -->
+
+                <div class="container">
+
+                    <!-- Start Header Navigation -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target="#navbar-menu">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <a class="navbar-brand" href="index.html">sine<span>mkt</span>.</a>
+
+                    </div><!--/.navbar-header-->
+                    <!-- End Header Navigation -->
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+                        <ul class="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
+                            <li class="item active"><a href="listar">Listar Produtos</a></li>
+                            <li class="item"><a href="salvar">Salvar Produtos</a></li>
+                        </ul><!--/.nav -->
+                    </div><!-- /.navbar-collapse -->
+                </div><!--/.container-->
+            </nav><!--/nav-->
+            <!-- End Navigation -->
+        </div><!--/.header-area-->
+        <div class="clearfix"></div>
+    </div><!-- /.top-area-->
+    <!-- top-area End -->
+
+</header><!--/.welcome-hero-->
+<!--welcome-hero end -->
+
+<!--new-arrivals start -->
+<section id="new-arrivals" class="new-arrivals">
+    <div class="container">
+        <div class="section-header">
+            <h2>lista dos produtos</h2>
+        </div><!--/.section-header-->
+        <div class="new-arrivals-content">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 col-sm-12" th:each="produto : ${produto}">
+                    <div class="single-new-arrival">
+                        <div class="single-new-arrival-bg">
+                            <img th:src="@{assets/images/upload/{image}(image=${produto.images})}" alt="new-arrivals images">
+                            <div class="single-new-arrival-bg-overlay"></div>
+                            <div class="sale bg-1">
+                                <p></p>
+                            </div>
+                            <div class="new-arrival-cart">
+                                <p>
+                                    <span class="lnr lnr-pencil"></span>
+                                    <a th:href="@{editar/{id}(id=${produto.id})}">Edit <span> </span> </a>
+                                </p>
+                            </div>
+                        </div>
+                        <h4><a href="#" th:text="${produto.nome}"></a></h4>
+                        <p class="arrival-product-price" th:text="${produto.preco}"></p>Kz
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+     <!--/.container-->
+
+</section><!--/.new-arrivals-->
+<!--new-arrivals end -->
+
+<!--footer start-->
+<footer id="footer" class="footer">
+    <div class="container">
+        <div class="hm-footer-copyright text-center">
+            <div class="footer-social">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-pinterest"></i></a>
+                <a href="#"><i class="fa fa-behance"></i></a>
+            </div>
+            <p>
+                &copy;copyright. designed and developed by <a href="https://www.themesine.com/">themesine</a>
+            </p><!--/p-->
+        </div><!--/.text-center-->
+    </div><!--/.container-->
+
+    <div id="scroll-Top">
+        <div class="return-to-top">
+            <i class="fa fa-angle-up " id="scroll-top" data-toggle="tooltip" data-placement="top" title=""
+               data-original-title="Back to Top" aria-hidden="true"></i>
+        </div>
+
+    </div><!--/.scroll-Top-->
+
+</footer><!--/.footer-->
+<!--footer end-->
+
+<!-- Include all js compiled plugins (below), or include individual files as needed -->
+
+<script src="assets/js/jquery.js"></script>
+
+<!--modernizr.min.js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+<!--bootstrap.min.js-->
+<script src="assets/js/bootstrap.min.js"></script>
+
+<!-- bootsnav js -->
+<script src="assets/js/bootsnav.js"></script>
+
+<!--owl.carousel.js-->
+<script src="assets/js/owl.carousel.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+
+<!--Custom JS-->
+<script src="assets/js/custom.js"></script>
+
+</body>
+
+</html>
