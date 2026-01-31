@@ -32,6 +32,7 @@ public class MainController {
 
     /**
      * Exibe a página inicial com produtos em destaque
+     * 
      * @param model Model do Spring
      * @return Nome da view
      */
@@ -40,18 +41,18 @@ public class MainController {
         try {
             var produtos = repositortioProduto.findAll();
             model.addAttribute("produto", produtos);
-            
+
             // Produtos em destaque (primeiros 6)
             for (int i = 1; i <= 6; i++) {
                 Produto produto = repositortioProduto.findById(i).orElse(null);
                 model.addAttribute("produto" + i, produto);
             }
-            
+
             model.addAttribute("cartCount", GlobalData.produtos.size());
             model.addAttribute("total", GlobalData.produtos.stream()
                     .mapToDouble(Produto::getPreco).sum());
             model.addAttribute("cart", GlobalData.produtos);
-            
+
             return "index";
         } catch (Exception e) {
             model.addAttribute("erro", "Erro ao carregar produtos");
@@ -61,13 +62,14 @@ public class MainController {
 
     /**
      * Adiciona um produto ao carrinho
-     * @param id ID do produto
+     * 
+     * @param id                 ID do produto
      * @param redirectAttributes Atributos de redirecionamento
      * @return Redirecionamento
      */
     @GetMapping("adicionarCart/{id}")
-    public String adicionarCart(@PathVariable(value = "id") int id, 
-                               RedirectAttributes redirectAttributes) {
+    public String adicionarCart(@PathVariable(value = "id") int id,
+            RedirectAttributes redirectAttributes) {
         if (GlobalData.usuarios.isEmpty()) {
             redirectAttributes.addFlashAttribute("erro", "Faça login para adicionar ao carrinho");
             return "redirect:/login";
@@ -75,14 +77,14 @@ public class MainController {
 
         try {
             Produto produto = produtoService.getProductByID(id);
-            
+
             if (!produto.isDisponivel()) {
                 redirectAttributes.addFlashAttribute("erro", "Produto indisponível");
                 return "redirect:/";
             }
-            
+
             GlobalData.produtos.add(produto);
-            redirectAttributes.addFlashAttribute("mensagem", 
+            redirectAttributes.addFlashAttribute("mensagem",
                     "Produto adicionado ao carrinho com sucesso!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("erro", "Erro ao adicionar produto");
@@ -93,13 +95,14 @@ public class MainController {
 
     /**
      * Remove um produto específico do carrinho
-     * @param id ID do produto a remover
+     * 
+     * @param id                 ID do produto a remover
      * @param redirectAttributes Atributos de redirecionamento
      * @return Redirecionamento
      */
     @GetMapping("removerCart/{id}")
     public String removerItemCart(@PathVariable(value = "id") int id,
-                                  RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes) {
         try {
             GlobalData.produtos.removeIf(p -> p.getId() == id);
             redirectAttributes.addFlashAttribute("mensagem", "Produto removido do carrinho");
@@ -111,6 +114,7 @@ public class MainController {
 
     /**
      * Limpa todo o carrinho
+     * 
      * @param redirectAttributes Atributos de redirecionamento
      * @return Redirecionamento
      */
@@ -123,7 +127,8 @@ public class MainController {
 
     /**
      * Realiza pesquisa de produtos por nome
-     * @param nome Nome ou parte do nome do produto
+     * 
+     * @param nome  Nome ou parte do nome do produto
      * @param model Model do Spring
      * @return Nome da view
      */
@@ -137,12 +142,12 @@ public class MainController {
                 var produtos = repositortioProduto.findByNomeContaining(nome);
                 model.addAttribute("produto", produtos);
                 model.addAttribute("termoPesquisa", nome);
-                
+
                 if (produtos.isEmpty()) {
                     model.addAttribute("mensagem", "Nenhum produto encontrado");
                 }
             }
-            
+
             model.addAttribute("cartCount", GlobalData.produtos.size());
             return "pesquisa";
         } catch (Exception e) {
@@ -153,7 +158,8 @@ public class MainController {
 
     /**
      * Exibe detalhes de um produto específico
-     * @param id ID do produto
+     * 
+     * @param id    ID do produto
      * @param model Model do Spring
      * @return Nome da view
      */
@@ -173,15 +179,16 @@ public class MainController {
 
     /**
      * Adiciona um produto à lista de desejos do usuário
-     * @param id ID do produto
-     * @param listaDesejo Objeto lista de desejos
+     * 
+     * @param id                 ID do produto
+     * @param listaDesejo        Objeto lista de desejos
      * @param redirectAttributes Atributos de redirecionamento
      * @return Redirecionamento
      */
     @GetMapping("desejo/{id}")
-    public String desejo(@PathVariable(value = "id") int id, 
-                        ListaDesejo listaDesejo,
-                        RedirectAttributes redirectAttributes) {
+    public String desejo(@PathVariable(value = "id") int id,
+            ListaDesejo listaDesejo,
+            RedirectAttributes redirectAttributes) {
         if (GlobalData.usuarios.isEmpty()) {
             redirectAttributes.addFlashAttribute("erro", "Faça login para adicionar à lista de desejos");
             return "redirect:/login";
@@ -192,7 +199,7 @@ public class MainController {
             listaDesejo.setProduto(produto);
             listaDesejo.setUsuario(GlobalData.usuarios.get(0));
             repositorioListaDesejo.save(listaDesejo);
-            redirectAttributes.addFlashAttribute("mensagem", 
+            redirectAttributes.addFlashAttribute("mensagem",
                     "Produto adicionado à lista de desejos!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("erro", "Erro ao adicionar à lista de desejos");
@@ -203,6 +210,7 @@ public class MainController {
 
     /**
      * Exibe a lista de desejos do usuário
+     * 
      * @param model Model do Spring
      * @return Nome da view
      */
@@ -226,20 +234,21 @@ public class MainController {
 
     /**
      * Remove um produto da lista de desejos
-     * @param id ID do produto
+     * 
+     * @param id                 ID do produto
      * @param redirectAttributes Atributos de redirecionamento
      * @return Redirecionamento
      */
     @GetMapping("desejo/remover/{id}")
     public String removerDesejo(@PathVariable(value = "id") int id,
-                                RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes) {
         if (GlobalData.usuarios.isEmpty()) {
             return "redirect:/login";
         }
 
         try {
             repositorioListaDesejo.deleteById(id);
-            redirectAttributes.addFlashAttribute("mensagem", 
+            redirectAttributes.addFlashAttribute("mensagem",
                     "Produto removido da lista de desejos");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("erro", "Erro ao remover produto");

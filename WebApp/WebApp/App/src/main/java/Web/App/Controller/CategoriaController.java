@@ -30,6 +30,7 @@ public class CategoriaController {
 
     /**
      * Lista todas as categorias
+     * 
      * @param model Model do Spring
      * @return Nome da view
      */
@@ -41,7 +42,8 @@ public class CategoriaController {
 
     /**
      * Lista produtos de uma categoria específica
-     * @param id ID da categoria
+     * 
+     * @param id    ID da categoria
      * @param model Model do Spring
      * @return Nome da view
      */
@@ -50,11 +52,11 @@ public class CategoriaController {
         try {
             Categoria categoria = categoriaService.buscarPorId(id);
             var produtos = produtoService.buscarPorCategoria(id);
-            
+
             model.addAttribute("categoria", categoria);
             model.addAttribute("produtos", produtos);
             model.addAttribute("cartCount", GlobalData.produtos.size());
-            
+
             return "categorias/produtos";
         } catch (Exception e) {
             return "redirect:/categorias";
@@ -63,6 +65,7 @@ public class CategoriaController {
 
     /**
      * Exibe formulário para criar nova categoria (apenas admin)
+     * 
      * @param model Model do Spring
      * @return Nome da view
      */
@@ -78,7 +81,8 @@ public class CategoriaController {
 
     /**
      * Salva uma nova categoria (apenas admin)
-     * @param categoria Dados da categoria
+     * 
+     * @param categoria          Dados da categoria
      * @param redirectAttributes Atributos de redirecionamento
      * @return Redirecionamento
      */
@@ -104,7 +108,8 @@ public class CategoriaController {
 
     /**
      * Exibe formulário para editar categoria (apenas admin)
-     * @param id ID da categoria
+     * 
+     * @param id    ID da categoria
      * @param model Model do Spring
      * @return Nome da view
      */
@@ -125,7 +130,8 @@ public class CategoriaController {
 
     /**
      * Atualiza uma categoria existente (apenas admin)
-     * @param categoria Dados da categoria
+     * 
+     * @param categoria          Dados da categoria
      * @param redirectAttributes Atributos de redirecionamento
      * @return Redirecionamento
      */
@@ -147,13 +153,15 @@ public class CategoriaController {
 
     /**
      * Ativa ou desativa uma categoria (apenas admin)
-     * @param id ID da categoria
-     * @param ativa Status a ser definido
+     * 
+     * @param id                 ID da categoria
+     * @param ativa              Status a ser definido
      * @param redirectAttributes Atributos de redirecionamento
      * @return Redirecionamento
      */
     @GetMapping("/status/{id}")
-    public String alterarStatus(@PathVariable int id, @RequestParam boolean ativa, RedirectAttributes redirectAttributes) {
+    public String alterarStatus(@PathVariable int id, @RequestParam boolean ativa,
+            RedirectAttributes redirectAttributes) {
         if (GlobalData.usuarios.isEmpty() || !GlobalData.usuarios.get(0).getPapel().equals("admin")) {
             return "redirect:/login";
         }
@@ -170,7 +178,8 @@ public class CategoriaController {
 
     /**
      * Remove uma categoria (apenas admin)
-     * @param id ID da categoria
+     * 
+     * @param id                 ID da categoria
      * @param redirectAttributes Atributos de redirecionamento
      * @return Redirecionamento
      */
@@ -194,6 +203,7 @@ public class CategoriaController {
 
     /**
      * Lista categorias no painel admin (apenas admin)
+     * 
      * @param model Model do Spring
      * @return Nome da view
      */

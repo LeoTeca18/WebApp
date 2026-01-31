@@ -30,6 +30,7 @@ public class PedidoController {
 
     /**
      * Exibe o formulário de checkout
+     * 
      * @param model Model do Spring
      * @return Nome da view
      */
@@ -57,8 +58,9 @@ public class PedidoController {
 
     /**
      * Finaliza a compra criando um novo pedido
-     * @param endereco Endereço de entrega
-     * @param formaPagamento Forma de pagamento escolhida
+     * 
+     * @param endereco           Endereço de entrega
+     * @param formaPagamento     Forma de pagamento escolhida
      * @param redirectAttributes Atributos de redirecionamento
      * @return Redirecionamento
      */
@@ -67,7 +69,7 @@ public class PedidoController {
             @RequestParam String endereco,
             @RequestParam String formaPagamento,
             RedirectAttributes redirectAttributes) {
-        
+
         if (GlobalData.usuarios.isEmpty()) {
             return "redirect:/login";
         }
@@ -75,17 +77,16 @@ public class PedidoController {
         try {
             Usuario usuario = GlobalData.usuarios.get(0);
             Pedido pedido = pedidoService.criarPedido(
-                usuario, 
-                GlobalData.produtos, 
-                endereco, 
-                formaPagamento
-            );
+                    usuario,
+                    GlobalData.produtos,
+                    endereco,
+                    formaPagamento);
 
             // Limpa o carrinho
             GlobalData.produtos.clear();
 
-            redirectAttributes.addFlashAttribute("mensagem", 
-                "Pedido #" + pedido.getId() + " realizado com sucesso!");
+            redirectAttributes.addFlashAttribute("mensagem",
+                    "Pedido #" + pedido.getId() + " realizado com sucesso!");
             return "redirect:/pedidos/" + pedido.getId();
         } catch (IllegalArgumentException | IllegalStateException e) {
             redirectAttributes.addFlashAttribute("erro", e.getMessage());
@@ -98,7 +99,8 @@ public class PedidoController {
 
     /**
      * Exibe detalhes de um pedido específico
-     * @param id ID do pedido
+     * 
+     * @param id    ID do pedido
      * @param model Model do Spring
      * @return Nome da view
      */
@@ -113,8 +115,8 @@ public class PedidoController {
             Usuario usuario = GlobalData.usuarios.get(0);
 
             // Verifica se o pedido pertence ao usuário ou se é admin
-            if (pedido.getUsuario().getId() != usuario.getId() && 
-                !usuario.getPapel().equals("admin")) {
+            if (pedido.getUsuario().getId() != usuario.getId() &&
+                    !usuario.getPapel().equals("admin")) {
                 return "redirect:/pedidos/meus";
             }
 
@@ -127,6 +129,7 @@ public class PedidoController {
 
     /**
      * Lista todos os pedidos do usuário logado
+     * 
      * @param model Model do Spring
      * @return Nome da view
      */
@@ -145,7 +148,8 @@ public class PedidoController {
 
     /**
      * Cancela um pedido (usuário ou admin)
-     * @param id ID do pedido
+     * 
+     * @param id                 ID do pedido
      * @param redirectAttributes Atributos de redirecionamento
      * @return Redirecionamento
      */
@@ -160,8 +164,8 @@ public class PedidoController {
             Usuario usuario = GlobalData.usuarios.get(0);
 
             // Verifica permissão
-            if (pedido.getUsuario().getId() != usuario.getId() && 
-                !usuario.getPapel().equals("admin")) {
+            if (pedido.getUsuario().getId() != usuario.getId() &&
+                    !usuario.getPapel().equals("admin")) {
                 redirectAttributes.addFlashAttribute("erro", "Sem permissão");
                 return "redirect:/pedidos/meus";
             }
@@ -179,6 +183,7 @@ public class PedidoController {
 
     /**
      * Lista todos os pedidos (apenas admin)
+     * 
      * @param model Model do Spring
      * @return Nome da view
      */
@@ -195,8 +200,9 @@ public class PedidoController {
 
     /**
      * Atualiza o status de um pedido (apenas admin)
-     * @param id ID do pedido
-     * @param status Novo status
+     * 
+     * @param id                 ID do pedido
+     * @param status             Novo status
      * @param redirectAttributes Atributos de redirecionamento
      * @return Redirecionamento
      */
@@ -205,7 +211,7 @@ public class PedidoController {
             @PathVariable int id,
             @RequestParam String status,
             RedirectAttributes redirectAttributes) {
-        
+
         if (GlobalData.usuarios.isEmpty() || !GlobalData.usuarios.get(0).getPapel().equals("admin")) {
             return "redirect:/login";
         }

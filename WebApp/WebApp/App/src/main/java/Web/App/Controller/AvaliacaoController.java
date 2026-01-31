@@ -34,8 +34,9 @@ public class AvaliacaoController {
 
     /**
      * Exibe o formulário para criar uma nova avaliação
+     * 
      * @param produtoId ID do produto a ser avaliado
-     * @param model Model do Spring
+     * @param model     Model do Spring
      * @return Nome da view
      */
     @GetMapping("/nova/{produtoId}")
@@ -56,9 +57,10 @@ public class AvaliacaoController {
 
     /**
      * Processa o envio de uma nova avaliação
-     * @param produtoId ID do produto
-     * @param nota Nota da avaliação (1-5)
-     * @param comentario Comentário do usuário
+     * 
+     * @param produtoId          ID do produto
+     * @param nota               Nota da avaliação (1-5)
+     * @param comentario         Comentário do usuário
      * @param redirectAttributes Atributos de redirecionamento
      * @return Redirecionamento para a página do produto
      */
@@ -68,7 +70,7 @@ public class AvaliacaoController {
             @RequestParam int nota,
             @RequestParam(required = false) String comentario,
             RedirectAttributes redirectAttributes) {
-        
+
         if (GlobalData.usuarios.isEmpty()) {
             return "redirect:/login";
         }
@@ -96,8 +98,9 @@ public class AvaliacaoController {
 
     /**
      * Lista todas as avaliações de um produto
+     * 
      * @param produtoId ID do produto
-     * @param model Model do Spring
+     * @param model     Model do Spring
      * @return Nome da view
      */
     @GetMapping("/produto/{produtoId}")
@@ -120,7 +123,8 @@ public class AvaliacaoController {
 
     /**
      * Remove uma avaliação (apenas o próprio usuário ou admin)
-     * @param id ID da avaliação
+     * 
+     * @param id                 ID da avaliação
      * @param redirectAttributes Atributos de redirecionamento
      * @return Redirecionamento
      */
@@ -142,6 +146,7 @@ public class AvaliacaoController {
 
     /**
      * Lista avaliações pendentes de verificação (apenas admin)
+     * 
      * @param model Model do Spring
      * @return Nome da view
      */
@@ -158,7 +163,8 @@ public class AvaliacaoController {
 
     /**
      * Verifica uma avaliação (apenas admin)
-     * @param id ID da avaliação
+     * 
+     * @param id                 ID da avaliação
      * @param redirectAttributes Atributos de redirecionamento
      * @return Redirecionamento
      */
