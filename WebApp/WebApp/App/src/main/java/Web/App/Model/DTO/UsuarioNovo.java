@@ -31,25 +31,25 @@ public class Usuario {
      * Email do usuário (usado para login)
      */
     @Column(name = "email", nullable = false, unique = true, length = 150)
-    private String email;
+    public String email;
 
     /**
      * Senha do usuário (deve ser criptografada)
      */
     @Column(name = "senha", nullable = false, length = 255)
-    private String senha;
+    public String senha;
 
     /**
      * Papel/role do usuário (admin ou user)
      */
     @Column(name = "papel", nullable = false, length = 20)
-    private String papel;
+    public String papel;
 
     /**
      * Status da conta (ativa ou desativada)
      */
     @Column(name = "status", nullable = false)
-    private boolean status;
+    public boolean status;
 
     /**
      * Data de cadastro do usuário
@@ -96,11 +96,9 @@ public class Usuario {
 
     // Getters e Setters
 
-    /**
-     * Obtém o ID do usuário
-     * 
-     * @return ID do usuário
-     */
+    public int getId() {
+        return id;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -144,5 +142,73 @@ public class Usuario {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public LocalDateTime getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+    public List<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
+    }
+
+    public void setAvaliacoes(List<Avaliacao> avaliacoes) {
+        this.avaliacoes = avaliacoes;
+    }
+
+    /**
+     * Verifica se o usuário é administrador
+     * 
+     * @return true se for admin
+     */
+    public boolean isAdmin() {
+        return "admin".equalsIgnoreCase(papel);
+    }
+
+    /**
+     * Calcula o total gasto pelo usuário em pedidos
+     * 
+     * @return Total gasto
+     */
+    public double getTotalGasto() {
+        return pedidos.stream()
+                .mapToDouble(Pedido::getTotal)
+                .sum();
     }
 }
