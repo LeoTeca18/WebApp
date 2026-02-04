@@ -147,19 +147,31 @@ Acesse: **http://localhost:8080**
 ## 📁 Estrutura do Projeto
 
 ```
-WebApp/
-├── src/main/java/Web/App/
-│   ├── Controller/          # Controladores
-│   ├── Model/DTO/           # Entidades
-│   ├── Repository/          # Repositórios
-│   ├── Service/             # Serviços
-│   ├── Global/              # Dados globais
-│   └── Upload/              # Upload de arquivos
-├── src/main/resources/
-│   ├── static/              # CSS, JS, imagens
-│   ├── templates/           # Templates Thymeleaf
-│   └── application.properties
-└── pom.xml
+/
+├── .gitignore               # Arquivos ignorados pelo Git
+├── API_DOCUMENTATION.md     # Documentação da API
+├── INSTALLATION.md          # Guia de instalação
+├── README.md                # Este arquivo
+└── App/                     # Aplicação Spring Boot
+    ├── .gitignore
+    ├── .mvn/                # Maven wrapper
+    ├── mvnw                 # Maven wrapper script (Linux/Mac)
+    ├── mvnw.cmd             # Maven wrapper script (Windows)
+    ├── pom.xml              # Dependências Maven
+    └── src/
+        ├── main/
+        │   ├── java/Web/App/
+        │   │   ├── Controller/       # Controladores REST e MVC
+        │   │   ├── Model/DTO/        # Entidades e DTOs
+        │   │   ├── Repository/       # Repositórios JPA
+        │   │   ├── Service/          # Lógica de negócios
+        │   │   ├── Global/           # Dados globais
+        │   │   └── Upload/           # Upload de arquivos
+        │   └── resources/
+        │       ├── static/           # CSS, JS, imagens
+        │       ├── templates/        # Templates Thymeleaf
+        │       └── application.properties
+        └── test/                     # Testes unitários
 ```
 
 ## 🗄️ Banco de Dados

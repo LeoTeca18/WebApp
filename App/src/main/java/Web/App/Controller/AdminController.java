@@ -18,12 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 @Controller
 public class AdminController {
 
-    private static final String url = "C:\\Users\\DELL\\IdeaProjects\\WebApp\\App\\src\\main\\resources\\static\\assets\\images\\upload";
+    private static final String url = Paths.get("").toAbsolutePath().toString() + "/App/src/main/resources/static/assets/images/upload";
     @Autowired
     RepositorioUsuario repositorioUsuario;
     @Autowired
