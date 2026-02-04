@@ -66,8 +66,8 @@ git clone https://github.com/seu-usuario/webapp.git
 # Ou via SSH
 git clone git@github.com:seu-usuario/webapp.git
 
-# Entre no diretório
-cd webapp/WebApp/App
+# Entre no diretório do projeto
+cd webapp/App
 ```
 
 ### 3. Configurar application.properties
